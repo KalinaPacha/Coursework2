@@ -1,0 +1,52 @@
+-- In this script we will load the data from hdfs to hive table.
+
+CREATE DATABASE IF NOT EXISTS ANALYSES;
+
+USE ANALYSES;
+
+CREATE TABLE IF NOT EXISTS REVIEWS(
+`gPlusPlaceId` DOUBLE, 
+`gPlusUserId` DOUBLE, 
+`rating` DOUBLE, 
+`reviewerName` STRING, 
+`reviewText` STRING, 
+`categories` STRING, 
+`reviewTime` STRING) 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n' 
+STORED AS TEXTFILE;
+
+
+CREATE TABLE IF NOT EXISTS USERS(
+`gPlusUserId` DOUBLE, 
+`userName` STRING, 
+`jobs` STRING, 
+`currentPlace` STRING, 
+`previousPlace` STRING, 
+`education` STRING) 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n' 
+STORED AS TEXTFILE;
+
+
+CREATE TABLE IF NOT EXISTS PLACES(
+`gPlusUserId` DOUBLE, 
+`name` STRING, 
+`price` STRING, 
+`address` STRING, 
+`hours` STRING, 
+`phone` STRING,
+`closed` BOOLEAN) 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n' 
+STORED AS TEXTFILE;
+
+
+LOAD DATA INPATH '/mnt/data/reviews.csv' OVERWRITE INTO TABLE REVIEWS;
+
+LOAD DATA INPATH '/mnt/data/users.csv' OVERWRITE INTO TABLE USERS;
+
+LOAD DATA INPATH '/mnt/data/places.csv' OVERWRITE INTO TABLE PLACES;

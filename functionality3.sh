@@ -1,0 +1,5 @@
+# Functionality - 3
+
+hive -e "CREATE TABLE ANALYSES.USERS_SUBSET
+		AS SELECT * FROM ANALYSES.USERS 
+			WHERE JOBS='IT Specialist'"
